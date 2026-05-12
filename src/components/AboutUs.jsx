@@ -1,40 +1,44 @@
+import React from 'react';
+
 export default function AboutUs() {
   return (
-    <section className="py-xxl px-margin bg-primary border-y-4 border-on-surface relative overflow-hidden" id="about">
-      <div className="absolute top-0 left-0 w-full bg-[#ffe16e] text-on-surface py-2 border-b-4 border-on-surface overflow-hidden whitespace-nowrap z-20">
-        <div className="inline-block animate-[marquee_20s_linear_infinite] font-sticker-sm text-sticker-sm uppercase tracking-widest">
-          100% SAPI ASLI • DIANTAR CEPAT • HALAL ASSURED • 100% SAPI ASLI • DIANTAR CEPAT • HALAL ASSURED • 100% SAPI ASLI • DIANTAR CEPAT • HALAL ASSURED • 100% SAPI ASLI • DIANTAR CEPAT • HALAL ASSURED •
+    <section className="py-24 px-8 bg-blue-50" id="about-us">
+      <div className="max-w-7xl mx-auto flex flex-col items-center">
+        <div className="flex flex-col items-center mb-16 text-center">
+          <h2 className="text-4xl font-bold text-[#0f2c7a] mb-4 font-display-lg uppercase tracking-wider">KENAPA KAMI?</h2>
+          <div className="h-1.5 w-16 bg-[#eab308] rounded-full mb-6"></div>
+          <p className="text-gray-500 max-w-2xl font-body-md text-lg">
+            Kami berkomitmen memberikan kualitas susu sapi premium terbaik setiap harinya.
+          </p>
         </div>
-      </div>
-      <div className="max-w-6xl mx-auto flex flex-col items-center text-center mt-xl relative z-10">
-        <h2 className="font-display-lg text-display-lg text-on-primary uppercase mb-xl bg-on-surface p-4 neo-border rounded-2xl rotate-2">Kenapa Kami?</h2>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-xl w-full">
-          <div className="bg-surface-container-lowest p-lg rounded-3xl neo-border shadow-[8px_8px_0_0_rgba(26,28,28,1)] flex flex-col items-center -rotate-1 hover:rotate-0 transition-transform">
-            <div className="bg-[#adc7ff] text-on-surface rounded-2xl p-4 mb-md neo-border">
-              <span className="text-6xl">🐄</span>
+
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 w-full">
+          {/* Card 1 */}
+          <div className="bg-white p-8 rounded-3xl border border-blue-100 shadow-[0_8px_30px_rgb(0,0,0,0.04)] flex flex-col items-center text-center hover:-translate-y-2 transition-transform duration-300">
+            <div className="w-16 h-16 bg-[#0f2c7a] text-white rounded-2xl flex items-center justify-center mb-6 shadow-lg">
+              <span className="text-3xl">🐄</span>
             </div>
-            <h3 className="font-headline-md text-headline-md text-on-surface mb-sm uppercase bg-[#ffe16e] px-2 border-2 border-on-surface rounded-xl">100% Asli</h3>
-            <p className="font-body-md text-body-md text-on-surface font-bold">Diperah langsung setiap pagi untuk menjamin kualitas dan nutrisi terbaik.</p>
+            <h3 className="font-bold text-[#0f2c7a] text-xl mb-3 font-headline-md uppercase">100% Asli</h3>
+            <p className="text-gray-500 font-body-md">Diperah langsung setiap pagi untuk menjamin kualitas dan nutrisi terbaik.</p>
           </div>
-          <div className="bg-[#adc7ff] p-lg rounded-3xl neo-border shadow-[8px_8px_0_0_rgba(26,28,28,1)] flex flex-col items-center rotate-2 hover:rotate-0 transition-transform">
-            <div className="bg-surface-container-lowest text-on-surface rounded-2xl p-4 mb-md neo-border">
-              <span className="text-6xl">✅</span>
+          
+          {/* Card 2 */}
+          <div className="bg-white p-8 rounded-3xl border border-blue-100 shadow-[0_8px_30px_rgb(0,0,0,0.04)] flex flex-col items-center text-center hover:-translate-y-2 transition-transform duration-300">
+            <div className="w-16 h-16 bg-[#eab308] text-white rounded-2xl flex items-center justify-center mb-6 shadow-lg">
+              <span className="text-3xl">✅</span>
             </div>
-            <h3 className="font-headline-md text-headline-md text-on-surface mb-sm uppercase bg-surface-container-lowest px-2 border-2 border-on-surface rounded-xl">Halal</h3>
-            <p className="font-body-md text-body-md text-on-surface font-bold">Proses higienis dan terjamin halal untuk ketenangan hati Anda saat mengonsumsi.</p>
+            <h3 className="font-bold text-[#0f2c7a] text-xl mb-3 font-headline-md uppercase">Halal</h3>
+            <p className="text-gray-500 font-body-md">Proses higienis dan terjamin halal untuk ketenangan hati Anda saat mengonsumsi.</p>
           </div>
-          <div className="bg-[#ffe16e] p-lg rounded-3xl neo-border shadow-[8px_8px_0_0_rgba(26,28,28,1)] flex flex-col items-center -rotate-2 hover:rotate-0 transition-transform">
-            <div className="bg-surface-container-lowest text-on-surface rounded-2xl p-4 mb-md neo-border">
-              <span className="text-6xl">🛵</span>
+          
+          {/* Card 3 */}
+          <div className="bg-white p-8 rounded-3xl border border-blue-100 shadow-[0_8px_30px_rgb(0,0,0,0.04)] flex flex-col items-center text-center hover:-translate-y-2 transition-transform duration-300">
+            <div className="w-16 h-16 bg-[#0f2c7a] text-white rounded-2xl flex items-center justify-center mb-6 shadow-lg">
+              <span className="text-3xl">🛵</span>
             </div>
-            <h3 className="font-headline-md text-headline-md text-on-surface mb-sm uppercase bg-surface-container-lowest px-2 border-2 border-on-surface rounded-xl">Ngebut</h3>
-            <p className="font-body-md text-body-md text-on-surface font-bold">Armada kami siap mengantar kesegaran langsung ke lokasi Anda setiap hari.</p>
+            <h3 className="font-bold text-[#0f2c7a] text-xl mb-3 font-headline-md uppercase">Ngebut</h3>
+            <p className="text-gray-500 font-body-md">Armada kami siap mengantar kesegaran langsung ke lokasi Anda setiap hari.</p>
           </div>
-        </div>
-      </div>
-      <div className="absolute bottom-0 left-0 w-full bg-[#adc7ff] text-on-surface py-2 border-t-4 border-on-surface overflow-hidden whitespace-nowrap z-20">
-        <div className="inline-block animate-[marquee_20s_linear_infinite_reverse] font-sticker-sm text-sticker-sm uppercase tracking-widest">
-          FRESH EVERYDAY • ORDER NOW • FRESH EVERYDAY • ORDER NOW • FRESH EVERYDAY • ORDER NOW • FRESH EVERYDAY • ORDER NOW • FRESH EVERYDAY • ORDER NOW • FRESH EVERYDAY • ORDER NOW •
         </div>
       </div>
     </section>

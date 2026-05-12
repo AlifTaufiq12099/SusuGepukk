@@ -89,6 +89,20 @@ export default {
         "headline-md": ["32px", { "lineHeight": "1.2", "fontWeight": "700" }],
         "display-xl": ["64px", { "lineHeight": "1.1", "letterSpacing": "-0.04em", "fontWeight": "800" }],
         "display-lg": ["48px", { "lineHeight": "1.1", "letterSpacing": "-0.02em", "fontWeight": "800" }]
+      },
+      animation: {
+        'fade-in-up': 'fade-in-up 0.8s ease-out forwards',
+        'fade-in': 'fade-in 1s ease-out forwards',
+      },
+      keyframes: {
+        'fade-in-up': {
+          '0%': { opacity: '0', transform: 'translateY(30px)' },
+          '100%': { opacity: '1', transform: 'translateY(0)' },
+        },
+        'fade-in': {
+          '0%': { opacity: '0' },
+          '100%': { opacity: '1' },
+        }
       }
     },
   },

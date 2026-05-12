@@ -1,35 +1,58 @@
+import React, { useState } from 'react';
+
+const promos = [
+  { id: 1, img: '/promo/HimbauanPenting.jpg', alt: 'Himbauan Penting' },
+  { id: 2, img: '/promo/PelangganWajibBaca.jpg', alt: 'Pelanggan Wajib Baca' },
+  { id: 3, img: '/promo/Jam&HariBuka.jpg', alt: 'Jam & Hari Buka' },
+
+  
+];
+
 export default function Promo() {
+  const [activeIndex, setActiveIndex] = useState(0);
+
+  const handlePrev = () => {
+    const itemsToShow = window.innerWidth < 768 ? 1 : 3;
+    setActiveIndex(prev => (prev === 0 ? promos.length - itemsToShow : prev - 1));
+  };
+
+  const handleNext = () => {
+    const itemsToShow = window.innerWidth < 768 ? 1 : 3;
+    setActiveIndex(prev => (prev >= promos.length - itemsToShow ? 0 : prev + 1));
+  };
+
   return (
-    <section className="py-xl px-margin bg-surface-container-lowest relative z-20 mx-auto border-b-4 border-on-surface shadow-[0_4px_0_0_rgba(26,28,28,1)]">
-      <div className="max-w-7xl mx-auto flex overflow-x-auto pb-6 pt-4 px-4 gap-lg snap-x snap-mandatory scrollbar-hide">
-        <div className="flex-none w-[320px] snap-center bg-[#adc7ff] text-on-surface neo-border rounded-2xl p-md flex items-center gap-md neo-shadow-hover transition-all cursor-pointer">
-          <div className="bg-on-surface text-surface-bright rounded-xl p-3 neo-border">
-            <span className="material-symbols-outlined" style={{ fontVariationSettings: "'FILL' 1" }}>payments</span>
-          </div>
-          <div>
-            <h3 className="font-headline-md text-[24px] uppercase leading-tight">Cashback 20%</h3>
-            <p className="font-body-md text-body-md font-bold mt-1 bg-surface-container-lowest inline-block px-2 border-2 border-on-surface rounded-lg">Gopay/Ovo</p>
-          </div>
-        </div>
-        <div className="flex-none w-[320px] snap-center bg-primary text-on-primary neo-border rounded-2xl p-md flex items-center gap-md neo-shadow-hover transition-all cursor-pointer">
-          <div className="bg-tertiary-fixed text-on-surface rounded-xl p-3 neo-border">
-            <span className="material-symbols-outlined" style={{ fontVariationSettings: "'FILL' 1" }}>local_offer</span>
-          </div>
-          <div>
-            <h3 className="font-headline-md text-[24px] uppercase leading-tight">Beli 5 Gratis 1</h3>
-            <p className="font-body-md text-body-md font-bold mt-1 bg-on-surface text-surface-bright inline-block px-2 border-2 border-on-surface rounded-lg">Rasa Original</p>
-          </div>
-        </div>
-        <div className="flex-none w-[320px] snap-center bg-[#ffe16e] text-on-surface neo-border rounded-2xl p-md flex items-center gap-md neo-shadow-hover transition-all cursor-pointer">
-          <div className="bg-on-surface text-surface-bright rounded-xl p-3 neo-border">
-            <span className="material-symbols-outlined" style={{ fontVariationSettings: "'FILL' 1" }}>two_wheeler</span>
-          </div>
-          <div>
-            <h3 className="font-headline-md text-[24px] uppercase leading-tight">Gratis Ongkir</h3>
-            <p className="font-body-md text-body-md font-bold mt-1 bg-surface-container-lowest inline-block px-2 border-2 border-on-surface rounded-lg">Jarak &lt; 5km</p>
-          </div>
+    <section className="w-[95%] max-w-[1450px] mx-auto relative mt-4">
+      <button 
+        onClick={handlePrev}
+        className="absolute left-2 md:-left-6 top-1/2 -translate-y-1/2 z-10 w-12 h-12 bg-white rounded-full flex items-center justify-center text-[#1e40af] border-[3px] border-[#1e40af] hover:bg-blue-50 shadow-md transition-transform active:scale-95"
+      >
+        <span className="material-symbols-outlined font-bold">chevron_left</span>
+      </button>
+
+      <div className="overflow-hidden py-4">
+        <div 
+          className="flex gap-4 md:gap-8 transition-transform duration-500 ease-in-out"
+          style={{ transform: `translateX(-${activeIndex * (100 / 3)}%)` }}
+        >
+          {promos.map((promo, idx) => (
+            <div key={idx} className="min-w-[100%] md:min-w-[calc(33.333%-1rem)] lg:min-w-[calc(33.333%-1.33rem)] rounded-[40px] border-4 border-gray-900 shadow-[8px_8px_0_0_rgba(17,24,39,1)] overflow-hidden bg-gray-100">
+              <img 
+                src={promo.img} 
+                alt={promo.alt} 
+                className="w-full h-full object-cover"
+              />
+            </div>
+          ))}
         </div>
       </div>
+
+      <button 
+        onClick={handleNext}
+        className="absolute right-2 md:-right-6 top-1/2 -translate-y-1/2 z-10 w-12 h-12 bg-white rounded-full flex items-center justify-center text-[#1e40af] border-[3px] border-[#1e40af] hover:bg-blue-50 shadow-md transition-transform active:scale-95"
+      >
+        <span className="material-symbols-outlined font-bold">chevron_right</span>
+      </button>
     </section>
   );
 }
