@@ -1,17 +1,32 @@
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
-import Landing from './pages/Landing';
-import Login from './pages/Login';
-import Register from './pages/Register';
-import ForgotPassword from './pages/ForgotPassword';
-import RiderLayout from './layouts/RiderLayout';
-import RiderDashboard from './pages/rider/Dashboard';
-import AdminLayout from './layouts/AdminLayout';
-import AdminDashboard from './pages/admin/Dashboard';
+import { lazy } from 'react';
+import { Suspense } from 'react';
+
+const Landing = lazy(() => import('./pages/Landing'));
+const Login = lazy(() => import('./pages/Login'));
+const Register = lazy(() => import('./pages/Register'));
+const ForgotPassword = lazy(() => import('./pages/ForgotPassword'));
+const RiderLayout = lazy(() => import('./layouts/RiderLayout'));
+const RiderDashboard = lazy(() => import('./pages/rider/Dashboard'));
+const AdminLayout = lazy(() => import('./layouts/AdminLayout'));
+const AdminDashboard = lazy(() => import('./pages/admin/Dashboard'));
+
+const LoadingFallback = () => (
+  <div className="flex items-center justify-center min-h-screen bg-gray-100">
+    <div className="text-center">
+      <div className="inline-block animate-spin">
+        <div className="w-12 h-12 border-4 border-gray-300 border-t-blue-600 rounded-full"></div>
+      </div>
+      <p className="mt-4 text-gray-600">Loading...</p>
+    </div>
+  </div>
+);
 
 function App() {
   return (
     <Router>
-      <Routes>
+      <Suspense fallback={<LoadingFallback />}>
+        <Routes>
         <Route path="/" element={<Landing />} />
         <Route path="/admin/login" element={<Login />} />
         <Route path="/admin/register" element={<Register />} />
@@ -29,6 +44,7 @@ function App() {
           <Route path="dashboard" element={<AdminDashboard />} />
         </Route>
       </Routes>
+      </Suspense>
     </Router>
   );
 }
