@@ -1,7 +1,7 @@
 import React from 'react';
 import { Outlet, Link, useLocation } from 'react-router-dom';
 
-export default function AdminLayout() {
+export default function AdminLayout({ children }) {
   const location = useLocation();
   const currentPath = location.pathname;
 
@@ -69,7 +69,7 @@ export default function AdminLayout() {
         </div>
         {/* Page Content */}
         <div className="p-8 flex-1 bg-[#1e3a8a]">
-          <Outlet />
+          {children || <Outlet />}
         </div>
       </main>
     </div>
