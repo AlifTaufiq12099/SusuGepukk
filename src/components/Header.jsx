@@ -1,7 +1,12 @@
 import React, { useState, useEffect, useRef } from 'react';
+import { useNavigate, useLocation } from 'react-router-dom';
 
 export default function Header() {
-  const [activeItem, setActiveItem] = useState('Home');
+  const navigate = useNavigate();
+  const location = useLocation();
+  const [activeItem, setActiveItem] = useState(() => {
+    return (location.pathname.includes('outlet') || location.pathname.includes('sotr')) ? 'Lokasi' : 'Home';
+  });
   const [isScrolled, setIsScrolled] = useState(false);
   const [indicatorStyle, setIndicatorStyle] = useState({ left: 0, width: 0 });
   const navRefs = useRef({});
@@ -44,7 +49,16 @@ export default function Header() {
 
   return (
     <header className={`fixed top-0 left-0 w-full z-50 px-8 md:px-11 flex justify-between items-center transition-all duration-300 bg-white opacity-0 animate-fade-in ${isScrolled ? 'py-3 shadow-md border-b border-gray-100' : 'py-5'}`} style={{ animationFillMode: 'forwards' }}>
-      <div className="flex flex-col leading-none font-bold text-[#0f2c7a] text-xl font-display-xl uppercase tracking-tighter hover:scale-105 transition-transform duration-300 cursor-pointer">
+      <div 
+        onClick={() => {
+          if (location.pathname !== '/') {
+            navigate('/');
+          } else {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+          }
+        }}
+        className="flex flex-col leading-none font-bold text-[#0f2c7a] text-xl font-display-xl uppercase tracking-tighter hover:scale-105 transition-transform duration-300 cursor-pointer"
+      >
         <img src="/susu.png" alt="Susu Gepuk" className="w-48" />
       </div>
       
@@ -62,6 +76,22 @@ export default function Header() {
               onClick={(e) => {
                 e.preventDefault();
                 setActiveItem(item.label);
+                
+                if (location.pathname !== '/') {
+                  navigate('/#' + item.id);
+                  // We use a small timeout to let React Router navigate before we scroll if possible
+                  setTimeout(() => {
+                    const targetElement = document.getElementById(item.id);
+                    if (targetElement) {
+                      const headerOffset = 100;
+                      const elementPosition = targetElement.getBoundingClientRect().top;
+                      const offsetPosition = elementPosition + window.scrollY - headerOffset;
+                      window.scrollTo({ top: offsetPosition, behavior: 'smooth' });
+                    }
+                  }, 100);
+                  return;
+                }
+
                 const targetElement = document.getElementById(item.id);
                 if (targetElement) {
                   const headerOffset = 100;
@@ -98,6 +128,21 @@ export default function Header() {
                       onClick={(e) => {
                         e.preventDefault();
                         setActiveItem(item.label);
+                        
+                        if (location.pathname !== '/') {
+                          navigate('/#' + sub.id);
+                          setTimeout(() => {
+                            const targetElement = document.getElementById(sub.id);
+                            if (targetElement) {
+                              const headerOffset = 100;
+                              const elementPosition = targetElement.getBoundingClientRect().top;
+                              const offsetPosition = elementPosition + window.scrollY - headerOffset;
+                              window.scrollTo({ top: offsetPosition, behavior: 'smooth' });
+                            }
+                          }, 100);
+                          return;
+                        }
+
                         const targetElement = document.getElementById(sub.id);
                         if (targetElement) {
                           const headerOffset = 100;

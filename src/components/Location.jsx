@@ -1,6 +1,9 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
+import { allRiders } from '../pages/SotrLocations';
 
 export default function Location() {
+  const navigate = useNavigate();
   return (
     <section className="bg-[#1e3a8a] pt-24 border-t-8 border-gray-900 w-full overflow-hidden flex flex-col" id="lokasi">
       <div className="max-w-7xl mx-auto px-8 w-full">
@@ -46,7 +49,9 @@ export default function Location() {
             </div>
           </div>
           <div className="flex justify-end mt-6">
-            <button className="bg-[#fde047] text-gray-900 px-8 py-2.5 rounded-full font-bold border-2 border-gray-900 shadow-[3px_3px_0_0_rgba(17,24,39,1)] hover:bg-yellow-400 hover:translate-y-0.5 hover:shadow-[1px_1px_0_0_rgba(17,24,39,1)] transition-all">
+            <button 
+              onClick={() => navigate('/outlet-locations')}
+              className="bg-[#fde047] text-gray-900 px-8 py-2.5 rounded-full font-bold border-2 border-gray-900 shadow-[3px_3px_0_0_rgba(17,24,39,1)] hover:bg-yellow-400 hover:translate-y-0.5 hover:shadow-[1px_1px_0_0_rgba(17,24,39,1)] transition-all">
               Others
             </button>
           </div>
@@ -62,36 +67,68 @@ export default function Location() {
             <div className="h-0.5 flex-1 bg-blue-200 opacity-40"></div>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-x-8 gap-y-16">
-            {[1, 2, 3].map((item) => (
-              <div key={`sotr-${item}`} className="bg-white rounded-3xl pt-14 pb-8 px-6 relative flex flex-col items-center border-4 border-gray-900 shadow-[6px_6px_0_0_rgba(17,24,39,1)]">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-x-8 gap-y-16 mt-8">
+            {allRiders.slice(0, 3).map((rider) => (
+              <div key={`sotr-${rider.id}`} className="bg-white rounded-[24px] pt-14 pb-8 px-6 relative flex flex-col items-center border-[4px] border-gray-900 shadow-[6px_6px_0_0_rgba(17,24,39,1)] hover:-translate-y-1 transition-all">
                 {/* Avatar Circle */}
-                <div className="absolute -top-12 left-1/2 -translate-x-1/2 w-24 h-24 bg-gray-200 rounded-full shrink-0 border-4 border-gray-900 flex items-center justify-center">
+                <div className="absolute -top-12 left-1/2 -translate-x-1/2 w-24 h-24 bg-[#d9d9d9] shrink-0 border-[4px] border-gray-900 flex items-center justify-center overflow-hidden shadow-xl"
+                  style={{ borderRadius: '60%' }}>
                   <span className="material-symbols-outlined text-4xl text-gray-400">person</span>
                 </div>
 
-                <h4 className="font-bold text-gray-900 mb-6 font-headline-md">NAMA</h4>
+                <div className="w-full relative flex items-center mb-4 h-6">
+                  <h4 className="font-bold text-gray-900 text-lg uppercase tracking-wide">{rider.name || 'NAMA'}</h4>
+                  {rider.status === 'Tersedia' ? (
+                    <div className="absolute right-0 flex items-center gap-1 text-[#0ea5e9] text-xs font-bold">
+                      Tersedia <span className="material-symbols-outlined text-[16px]" style={{ fontVariationSettings: "'FILL' 1" }}>check_circle</span>
+                    </div>
+                  ) : (
+                    <div className="absolute right-0 flex items-center gap-1 text-red-600 text-xs font-bold">
+                      Habis <span className="material-symbols-outlined text-[16px]" style={{ fontVariationSettings: "'FILL' 1" }}>cancel</span>
+                    </div>
+                  )}
+                </div>
+
                 <div className="w-full h-1 bg-gray-900 mb-6"></div>
 
-                <div className="flex items-start gap-3 w-full mb-8">
-                  <div className="w-8 h-8 bg-[#0f2c7a] rounded-full flex items-center justify-center shrink-0 mt-1">
-                    <span className="material-symbols-outlined text-white text-[16px]" style={{ fontVariationSettings: "'FILL' 1" }}>location_on</span>
+                <div className="flex items-center gap-4 w-full mb-8">
+                  <div className="w-10 h-10 bg-[#0052cc] rounded-full flex items-center justify-center shrink-0 border-[3px] border-gray-900 shadow-[3px_3px_0_0_rgba(17,24,39,1)]">
+                    <span className="material-symbols-outlined text-white text-[18px]">location_on</span>
                   </div>
-                  <div>
-                    <p className="text-[10px] text-gray-500 mb-1 font-label-bold uppercase tracking-wider">LOKASI SAAT INI</p>
-                    <p className="font-bold text-gray-900 text-sm">Jl. Sudirman (Dekat Bundaran)</p>
+                  <div className="flex-1">
+                    <p className="text-[10px] text-gray-500 mb-0.5 font-bold uppercase tracking-wider">LOKASI SAAT INI</p>
+                    <p className="font-bold text-gray-900 text-[15px]">{rider.location}</p>
                   </div>
                 </div>
 
-                <button className="bg-[#b91c1c] text-white font-bold px-6 py-3 rounded-full border-[3px] border-gray-900 shadow-[4px_4px_0_0_rgba(17,24,39,1)] flex items-center gap-2 hover:bg-red-800 hover:translate-y-1 hover:shadow-[2px_2px_0_0_rgba(17,24,39,1)] transition-all text-[11px] uppercase tracking-wide">
-                  <div className="w-2.5 h-2.5 bg-white rounded-full animate-pulse"></div>
-                  LIHAT LIVE LOCATION
-                </button>
+                {rider.status === 'Tersedia' ? (
+                  <a
+                    href={rider.mapsUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    style={{ borderRadius: '999px' }}
+                    className="text-white font-bold px-8 py-3.5 border-[3px] border-gray-900 shadow-[4px_4px_0_0_rgba(17,24,39,1)] flex items-center justify-center gap-3 w-[90%] transition-all text-sm uppercase tracking-wide bg-[#b91c1c] hover:bg-red-800 hover:translate-y-1 hover:shadow-[2px_2px_0_0_rgba(17,24,39,1)]"
+                  >
+                    <div className="w-3.5 h-3.5 rounded-full bg-white"></div>
+                    LIHAT LOKASI RIDER
+                  </a>
+                ) : (
+                  <button
+                    disabled
+                    style={{ borderRadius: '999px' }}
+                    className="text-white font-bold px-8 py-3.5 border-[3px] border-gray-900 shadow-[4px_4px_0_0_rgba(17,24,39,1)] flex items-center justify-center gap-3 w-[90%] transition-all text-sm uppercase tracking-wide bg-gray-500 cursor-not-allowed opacity-80"
+                  >
+                    <div className="w-3.5 h-3.5 rounded-full bg-gray-300"></div>
+                    LIHAT LOKASI RIDER
+                  </button>
+                )}
               </div>
             ))}
           </div>
           <div className="flex justify-end mt-12">
-            <button className="bg-[#fde047] text-gray-900 px-9 py-2.5 mb-4 rounded-full font-bold border-2 border-gray-900 shadow-[3px_3px_0_0_rgba(17,24,39,1)] hover:bg-yellow-400 hover:translate-y-0.5 hover:shadow-[1px_1px_0_0_rgba(17,24,39,1)] transition-all">
+            <button 
+              onClick={() => navigate('/sotr-locations')}
+              className="bg-[#fde047] text-gray-900 px-9 py-2.5 mb-4 rounded-full font-bold border-2 border-gray-900 shadow-[3px_3px_0_0_rgba(17,24,39,1)] hover:bg-yellow-400 hover:translate-y-0.5 hover:shadow-[1px_1px_0_0_rgba(17,24,39,1)] transition-all">
               Others
             </button>
           </div>
@@ -108,7 +145,7 @@ export default function Location() {
 
         {/* Footer Content */}
         <div className="bg-[#0f2c7a] pt-12 pb-8 px-8 relative">
-          
+
           {/* Logo pill (centered absolute overlapping) */}
           <div className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 z-10">
             <div className="bg-white border-4 border-gray-900 rounded-[40px] px-8 py-3 shadow-[4px_4px_0_0_rgba(17,24,39,1)] hover:-translate-y-1 hover:shadow-[6px_6px_0_0_rgba(17,24,39,1)] transition-all cursor-pointer flex items-center justify-center">
@@ -122,7 +159,7 @@ export default function Location() {
                 SUSU SEGAR TIAP HARI
               </h3>
               <p className="text-blue-300 text-xs font-medium">
-                © 2021 Susu Gepuk Indonesia. All rights reserved.
+                © 2024 Susu Gepuk Indonesia. All rights reserved.
               </p>
             </div>
 

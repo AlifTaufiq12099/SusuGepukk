@@ -10,43 +10,51 @@ const RiderLayout = lazy(() => import('./layouts/RiderLayout'));
 const RiderDashboard = lazy(() => import('./pages/rider/Dashboard'));
 const AdminLayout = lazy(() => import('./layouts/AdminLayout'));
 const AdminDashboard = lazy(() => import('./pages/admin/Dashboard'));
+const OutletLocations = lazy(() => import('./pages/OutletLocations'));
+const SotrLocations = lazy(() => import('./pages/SotrLocations'));
+const RiderRekapPenjualan = lazy(() => import('./pages/rider/RekapPenjualan'));
+const RiderRiwayatPenjualan = lazy(() => import('./pages/rider/RiwayatPenjualan'));
 
 const LoadingFallback = () => (
-  <div className="flex items-center justify-center min-h-screen bg-gray-100">
-    <div className="text-center">
-      <div className="inline-block animate-spin">
-        <div className="w-12 h-12 border-4 border-gray-300 border-t-blue-600 rounded-full"></div>
-      </div>
-      <p className="mt-4 text-gray-600">Loading...</p>
+    <div className="flex items-center justify-center min-h-screen bg-gray-100">
+        <div className="text-center">
+            <div className="inline-block animate-spin">
+                <div className="w-12 h-12 border-4 border-gray-300 border-t-blue-600 rounded-full"></div>
+            </div>
+            <p className="mt-4 text-gray-600">Loading...</p>
+        </div>
     </div>
-  </div>
 );
 
 function App() {
-  return (
-    <Router>
-      <Suspense fallback={<LoadingFallback />}>
-        <Routes>
-        <Route path="/" element={<Landing />} />
-        <Route path="/admin/login" element={<Login />} />
-        <Route path="/admin/register" element={<Register />} />
-        <Route path="/admin/forgot" element={<ForgotPassword />} />
-        
-        {/* Rider Routes */}
-        <Route path="/rider" element={<RiderLayout />}>
-          <Route index element={<Navigate to="dashboard" replace />} />
-          <Route path="dashboard" element={<RiderDashboard />} />
-        </Route>
+    return (
+        <Router>
+            <Suspense fallback={<LoadingFallback />}>
+                <Routes>
+                    <Route path="/" element={<Landing />} />
+                    <Route path="/outlet-locations" element={<OutletLocations />} />
+                    <Route path="/sotr-locations" element={<SotrLocations />} />
+                    <Route path="/admin/login" element={<Login />} />
+                    <Route path="/admin/register" element={<Register />} />
+                    <Route path="/admin/forgot" element={<ForgotPassword />} />
 
-        {/* Admin Routes */}
-        <Route path="/admin" element={<AdminLayout />}>
-          <Route index element={<Navigate to="dashboard" replace />} />
-          <Route path="dashboard" element={<AdminDashboard />} />
-        </Route>
-      </Routes>
-      </Suspense>
-    </Router>
-  );
+                    {/* Rider Routes */}
+                    <Route path="/rider" element={<RiderLayout />}>
+                        <Route index element={<Navigate to="dashboard" replace />} />
+                        <Route path="dashboard" element={<RiderDashboard />} />
+                        <Route path="rekap" element={<RiderRekapPenjualan />} />
+                        <Route path="riwayat" element={<RiderRiwayatPenjualan />} />
+                    </Route>
+
+                    {/* Admin Routes */}
+                    <Route path="/admin" element={<AdminLayout />}>
+                        <Route index element={<Navigate to="dashboard" replace />} />
+                        <Route path="dashboard" element={<AdminDashboard />} />
+                    </Route>
+                </Routes>
+            </Suspense>
+        </Router>
+    );
 }
 
 export default App;
